@@ -15,15 +15,15 @@ if [ $? != 0 ]; then
 
     # Window 1: docs
     tmux new-window -t "$SESSION:1" -n 'docs'
-    tmux send-keys -t "$SESSION:1" "source ~/.zshrc && cd $HOME/Projects/security/product-security-docs/ && clear && lls" C-m
+    tmux send-keys -t "$SESSION:1" "source ~/.zshrc && cd $HOME/Projects/security/product-security-docs/ && lls" C-m
 
     # Window 2: projects
     tmux new-window -t "$SESSION:2" -n 'projects'
     tmux send-keys -t "$SESSION:2" "source ~/.zshrc && cd $HOME/Projects/ && clear && lls" C-m
 
-    # Window 3: colima
-    tmux new-window -t "$SESSION:3" -n 'colima'
-    tmux send-keys -t "$SESSION:3" 'clear && colima start && colima ssh' C-m
+    # Window 3: other
+    tmux new-window -t "$SESSION:3" -n 'other'
+    tmux send-keys -t "$SESSION:3" 'source ~/.zshrc && clear' C-m
 
     # Enable status bar
     tmux set-option -t "$SESSION" status on
