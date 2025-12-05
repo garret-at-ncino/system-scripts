@@ -11,11 +11,11 @@ if [ $? != 0 ]; then
 
     # Window 0: home
     tmux rename-window -t "$SESSION:0" 'home'
-    tmux send-keys -t "$SESSION:0" 'clear && echo "" && fastfetch' C-m
+    tmux send-keys -t "$SESSION:0" "cd $HOME && clear && echo '' && fastfetch" C-m
 
-    # Window 1: docs
-    tmux new-window -t "$SESSION:1" -n 'docs'
-    tmux send-keys -t "$SESSION:1" "source ~/.zshrc && cd $HOME/Projects/security/product-security-docs/ && lls" C-m
+    # Window 1: system
+    tmux new-window -t "$SESSION:1" -n 'system'
+    tmux send-keys -t "$SESSION:1" "source ~/.zshrc && btop" C-m
 
     # Window 2: projects
     tmux new-window -t "$SESSION:2" -n 'projects'
@@ -23,7 +23,7 @@ if [ $? != 0 ]; then
 
     # Window 3: other
     tmux new-window -t "$SESSION:3" -n 'other'
-    tmux send-keys -t "$SESSION:3" 'source ~/.zshrc && clear' C-m
+    tmux send-keys -t "$SESSION:3" "source ~/.zshrc && cd $HOME && clear" C-m
 
     # Enable status bar
     tmux set-option -t "$SESSION" status on
