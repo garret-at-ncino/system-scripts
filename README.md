@@ -10,19 +10,19 @@ Tmux session management scripts that create or re-attach to predefined session l
 
 Creates/attaches to the **main** tmux session with 4 windows:
 
-- **home** - Primary window with fastfetch display
-- **docs** - Opens `product-security-docs` repository
+- **home** - Primary window with fastfetch display (starts in `$HOME`)
+- **system** - Runs `btop` system monitor
 - **projects** - Opens general `Projects/` directory
-- **other** - Throwaway window for misc tasks
+- **other** - Throwaway window for misc tasks (starts in `$HOME`)
 
 ### `batch-change.sh`
 
 Creates/attaches to the **batch-change** tmux session with 4 windows:
 
-- **home** - Primary window with fastfetch display
-- **batch** - Opens `sourcegraph-batch-change-library` repository
-- **colima** - Starts colima and SSH session
-- **other** - Throwaway window for misc tasks
+- **home** - Primary window with fastfetch display (starts in `$HOME`)
+- **batch** - Opens `ncino/sourcegraph-batch-change-library` repository
+- **colima** - Starts colima and SSH session (starts in `ncino/sourcegraph-batch-change-library`)
+- **other** - Throwaway window for misc tasks (starts in `$HOME`)
 
 ## Usage
 
