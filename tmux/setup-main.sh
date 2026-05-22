@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Main tmux session setup script — three windows: btop, home (~ + neo), projects (~/Projects + lls)
+# Main tmux session — btop, home (~ + neo), projects (~/Projects + lls), claude-code (~/Projects)
 
 set -euo pipefail
 
@@ -20,7 +20,13 @@ create_session() {
     configure_session_options "${SESSION_NAME}" "green"
     create_main_session_windows "${SESSION_NAME}"
 
-    log "${SESSION_NAME}" "Session ${SESSION_NAME} created (windows: btop, home, projects)"
+    tmux new-window -t "${SESSION_NAME}" -n 'projects' -c "${HOME}/Projects"
+    prepare_tmux_pane "${SESSION_NAME}:projects" "${HOME}/Projects" 'clear' 'lls'
+
+    tmux new-window -t "${SESSION_NAME}" -n 'claude-code' -c "${HOME}/Projects"
+    prepare_tmux_pane "${SESSION_NAME}:claude-code" "${HOME}/Projects" 'clear'
+
+    log "${SESSION_NAME}" "Session ${SESSION_NAME} created (windows: btop, home, projects, claude-code)"
 }
 
 attach_session() {

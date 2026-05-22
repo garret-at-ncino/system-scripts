@@ -51,17 +51,16 @@ Enhanced tmux session management following bash and tmux best practices:
 
 **Core Scripts:**
 
-- `setup-main.sh` - General-purpose session with system monitoring
-- `setup-dev.sh` - Development-focused session with project tools
+- `setup-main.sh` - General-purpose session
+- `setup-dev.sh` - Development-focused session
+- `setup-batch-change.sh` - Batch change workflow session
 - `session-manager.sh` - Comprehensive session manager
 - `tmux-utils.sh` - Shared utility functions
 
 **Key Features:**
 
 - ✅ **Bash Best Practices**: Strict error handling, proper quoting, logging
-- ✅ **Tmux Best Practices**: Session management, window organization, split panes
-- ✅ **Creative Workflows**: Split panes, specialized windows, tool integration
-- ✅ **Development Tools**: Git, Docker, testing, database, and monitoring windows
+- ✅ **Tmux Best Practices**: Session management, window organization
 - ✅ **Error Handling**: Comprehensive validation and colored output
 - ✅ **Logging**: Timestamped logs with session-specific files
 
@@ -79,23 +78,28 @@ Enhanced tmux session management following bash and tmux best practices:
 
 ## 📋 Session Layouts
 
-### Main Session
+### Main Session (`main`)
 
-- **home** - Welcome screen with quick commands
-- **docs** - Documentation workspace
-- **projects** - Projects directory
-- **monitor** - System monitoring (htop)
-- **tools** - Development tools workspace
+- **btop** - System monitor
+- **home** - Home directory (`~`)
+- **projects** - Projects directory (`~/Projects`)
+- **claude-code** - Claude Code workspace (`~/Projects`)
 
-### Development Session
+### Development Session (`dev`)
 
-- **dev-home** - Development welcome screen
-- **project** - Active project with split panes (code + logs)
-- **git** - Git/version control workspace
-- **docker** - Docker containers management
-- **test** - Testing and CI workspace
-- **db** - Database and backend tools
-- **logs** - Logs and monitoring
+- **btop** - System monitor
+- **home** - Home directory (`~`)
+- **claude-code** - Claude Code workspace (`~/Projects`)
+- **projects** - Projects directory (`~/Projects`)
+- **neovim** - Editor workspace (`~/Projects`)
+- **git** - Git/version control workspace (`~/Projects`)
+
+### Batch Change Session (`batch-change`)
+
+- **btop** - System monitor
+- **home** - Home directory (`~`)
+- **batch** - Batch change library (`~/Projects/ncino/sourcegraph-batch-change-library`)
+- **colima** - Colima VM management (`~/Projects/ncino/sourcegraph-batch-change-library`)
 
 ## 🛠️ Dependencies
 

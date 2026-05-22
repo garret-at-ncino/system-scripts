@@ -6,8 +6,8 @@ is no application runtime; changes are almost always Bash and documentation.
 
 ## Layout
 
-- **`tmux/`** — `setup-main.sh`, `setup-dev.sh`, `session-manager.sh`;
-  shared helpers in `tmux-utils.sh`
+- **`tmux/`** — `setup-main.sh`, `setup-dev.sh`, `setup-batch-change.sh`,
+  `session-manager.sh`; shared helpers in `tmux-utils.sh`
 - **`code-backup/`** — `code-backup-local.sh`, `code-backup-gitlab.sh`
 - **`.github/workflows/`** — PR quality checks (reusable workflow)
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Development tmux session — btop, home, claude-code (~/Projects), projects (~/Projects + lls), neovim, git
+# Batch change tmux session — btop, home, batch (sourcegraph-batch-change-library), colima
 
 set -euo pipefail
 
@@ -8,7 +8,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=tmux-utils.sh
 source "${SCRIPT_DIR}/tmux-utils.sh"
 
-readonly SESSION_NAME='dev'
+readonly SESSION_NAME='batch-change'
+readonly BATCH_DIR="${HOME}/Projects/ncino/sourcegraph-batch-change-library"
 
 create_session() {
     log "${SESSION_NAME}" "Creating new tmux session: ${SESSION_NAME}"
@@ -17,22 +18,16 @@ create_session() {
         error_exit "Failed to create tmux session: ${SESSION_NAME}"
     fi
 
-    configure_session_options "${SESSION_NAME}" "cyan"
+    configure_session_options "${SESSION_NAME}" "magenta"
     create_main_session_windows "${SESSION_NAME}"
 
-    tmux new-window -t "${SESSION_NAME}" -n 'claude-code' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:claude-code" "${HOME}/Projects" 'clear'
+    tmux new-window -t "${SESSION_NAME}" -n 'batch' -c "${BATCH_DIR}"
+    prepare_tmux_pane "${SESSION_NAME}:batch" "${BATCH_DIR}" 'lls'
 
-    tmux new-window -t "${SESSION_NAME}" -n 'projects' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:projects" "${HOME}/Projects" 'clear' 'lls'
+    tmux new-window -t "${SESSION_NAME}" -n 'colima' -c "${BATCH_DIR}"
+    prepare_tmux_pane "${SESSION_NAME}:colima" "${BATCH_DIR}" 'clear' 'colima start' 'colima ssh'
 
-    tmux new-window -t "${SESSION_NAME}" -n 'neovim' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:neovim" "${HOME}/Projects" 'clear'
-
-    tmux new-window -t "${SESSION_NAME}" -n 'git' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:git" "${HOME}/Projects" 'clear'
-
-    log "${SESSION_NAME}" "Session ${SESSION_NAME} created (windows: btop, home, claude-code, projects, neovim, git)"
+    log "${SESSION_NAME}" "Session ${SESSION_NAME} created (windows: btop, home, batch, colima)"
 }
 
 attach_session() {

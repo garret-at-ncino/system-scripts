@@ -60,6 +60,7 @@ configure_session_options() {
     tmux set-option -t "${session_name}" status-left "#[fg=${status_color}]#S #[fg=white]| "
     tmux set-option -t "${session_name}" status-right '#[fg=yellow]%Y-%m-%d %H:%M:%S'
     tmux set-option -t "${session_name}" default-terminal "screen-256color"
+    tmux set-hook -t "${session_name}" after-new-window "send-keys -t '#{pane_id}' 'cd ${HOME}' Enter"
 }
 
 # Source interactive shell config (themes, aliases) in a tmux pane.
@@ -78,7 +79,7 @@ source_user_runtime_config() {
         tmux send-keys -t "${target}" "source \"${rc_file}\"" C-m
 }
 
-# Shared main layout: btop (0), home (1), projects (2).
+# Shared base layout: btop (0), home (1).
 create_main_session_windows() {
     local session_name="$1"
 
@@ -86,9 +87,6 @@ create_main_session_windows() {
 
     tmux new-window -t "${session_name}" -n 'home' -c "${HOME}"
     prepare_tmux_pane "${session_name}:home" "${HOME}" 'clear' 'neo'
-
-    tmux new-window -t "${session_name}" -n 'projects' -c "${HOME}/Projects"
-    prepare_tmux_pane "${session_name}:projects" "${HOME}/Projects" 'clear' 'lls'
 }
 
 # Prime a pane: runtime config, explicit cwd, then startup commands (e.g. clear, neo).
