@@ -33,6 +33,21 @@ See [README.md](README.md), [tmux/README.md](tmux/README.md), and
   other linters via a reusable workflow—scripts and markdown under linted
   paths should stay clean.
 
+## tmux session scripts — known pitfalls
+
+- **`set -euo pipefail` + `&&` short-circuit:** The pattern
+  `[[ -f file ]] && command` returns exit code 1 when the file is absent,
+  which kills the script under `set -e`. Always use `if [[ -f ]]; then ...; fi`
+  instead.
+- **Inline all windows per script:** Shared helpers like
+  `create_main_session_windows` that create fixed windows are fragile — they
+  bake in paths and startup commands that differ per session. Each setup script
+  should declare its own `btop` and `home` windows directly inside
+  `create_session` so the full layout is visible in one place.
+- **Per-script working directories:** Session scripts for ncino work should
+  default windows to `~/Projects/ncino`, not `~/Projects`. Verify the actual
+  intended `cwd` against what each window comment says before shipping.
+
 ## What to do when editing
 
 1. Read the target script and any scripts that `source` it before changing

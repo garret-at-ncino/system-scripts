@@ -75,18 +75,9 @@ source_user_runtime_config() {
         *) return 0 ;;
     esac
 
-    [[ -f "${rc_file}" ]] &&
+    if [[ -f "${rc_file}" ]]; then
         tmux send-keys -t "${target}" "source \"${rc_file}\"" C-m
-}
-
-# Shared base layout: btop (0), home (1).
-create_main_session_windows() {
-    local session_name="$1"
-
-    prepare_tmux_pane "${session_name}:btop" "${HOME}" 'btop'
-
-    tmux new-window -t "${session_name}" -n 'home' -c "${HOME}"
-    prepare_tmux_pane "${session_name}:home" "${HOME}" 'clear' 'neo'
+    fi
 }
 
 # Prime a pane: runtime config, explicit cwd, then startup commands (e.g. clear, neo).

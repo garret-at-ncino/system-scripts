@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Development tmux session — btop, home, claude-code (~/Projects), projects (~/Projects + lls), neovim, git
+# Development tmux session — btop (~), home (~), claude-code (~/Projects/ncino + lls), projects (~/Projects/ncino + lls), neovim (~), git (~)
 
 set -euo pipefail
 
@@ -18,19 +18,23 @@ create_session() {
     fi
 
     configure_session_options "${SESSION_NAME}" "cyan"
-    create_main_session_windows "${SESSION_NAME}"
 
-    tmux new-window -t "${SESSION_NAME}" -n 'claude-code' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:claude-code" "${HOME}/Projects" 'clear'
+    prepare_tmux_pane "${SESSION_NAME}:btop" "${HOME}" 'btop'
 
-    tmux new-window -t "${SESSION_NAME}" -n 'projects' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:projects" "${HOME}/Projects" 'clear' 'lls'
+    tmux new-window -t "${SESSION_NAME}" -n 'home' -c "${HOME}"
+    prepare_tmux_pane "${SESSION_NAME}:home" "${HOME}" 'clear'
 
-    tmux new-window -t "${SESSION_NAME}" -n 'neovim' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:neovim" "${HOME}/Projects" 'clear'
+    tmux new-window -t "${SESSION_NAME}" -n 'claude-code' -c "${HOME}/Projects/ncino"
+    prepare_tmux_pane "${SESSION_NAME}:claude-code" "${HOME}/Projects/ncino" 'clear' 'lls'
 
-    tmux new-window -t "${SESSION_NAME}" -n 'git' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:git" "${HOME}/Projects" 'clear'
+    tmux new-window -t "${SESSION_NAME}" -n 'projects' -c "${HOME}/Projects/ncino"
+    prepare_tmux_pane "${SESSION_NAME}:projects" "${HOME}/Projects/ncino" 'clear' 'lls'
+
+    tmux new-window -t "${SESSION_NAME}" -n 'neovim' -c "${HOME}"
+    prepare_tmux_pane "${SESSION_NAME}:neovim" "${HOME}" 'clear'
+
+    tmux new-window -t "${SESSION_NAME}" -n 'git' -c "${HOME}"
+    prepare_tmux_pane "${SESSION_NAME}:git" "${HOME}" 'clear'
 
     log "${SESSION_NAME}" "Session ${SESSION_NAME} created (windows: btop, home, claude-code, projects, neovim, git)"
 }

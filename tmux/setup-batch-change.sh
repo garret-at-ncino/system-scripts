@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Batch change tmux session — btop, home, batch (sourcegraph-batch-change-library), colima
+# Batch change tmux session — btop (~), home (~), batch (sourcegraph-batch-change-library), colima
 
 set -euo pipefail
 
@@ -19,7 +19,11 @@ create_session() {
     fi
 
     configure_session_options "${SESSION_NAME}" "magenta"
-    create_main_session_windows "${SESSION_NAME}"
+
+    prepare_tmux_pane "${SESSION_NAME}:btop" "${HOME}" 'btop'
+
+    tmux new-window -t "${SESSION_NAME}" -n 'home' -c "${HOME}"
+    prepare_tmux_pane "${SESSION_NAME}:home" "${HOME}" 'clear'
 
     tmux new-window -t "${SESSION_NAME}" -n 'batch' -c "${BATCH_DIR}"
     prepare_tmux_pane "${SESSION_NAME}:batch" "${BATCH_DIR}" 'lls'

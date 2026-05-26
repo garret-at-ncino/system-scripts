@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Main tmux session — btop, home (~ + neo), projects (~/Projects + lls), claude-code (~/Projects)
+# Main tmux session — btop (~), home (~), projects (~/Projects/ncino + lls), claude-code (~/Projects/ncino + lls)
 
 set -euo pipefail
 
@@ -18,13 +18,17 @@ create_session() {
     fi
 
     configure_session_options "${SESSION_NAME}" "green"
-    create_main_session_windows "${SESSION_NAME}"
 
-    tmux new-window -t "${SESSION_NAME}" -n 'projects' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:projects" "${HOME}/Projects" 'clear' 'lls'
+    prepare_tmux_pane "${SESSION_NAME}:btop" "${HOME}" 'btop'
 
-    tmux new-window -t "${SESSION_NAME}" -n 'claude-code' -c "${HOME}/Projects"
-    prepare_tmux_pane "${SESSION_NAME}:claude-code" "${HOME}/Projects" 'clear'
+    tmux new-window -t "${SESSION_NAME}" -n 'home' -c "${HOME}"
+    prepare_tmux_pane "${SESSION_NAME}:home" "${HOME}" 'clear'
+
+    tmux new-window -t "${SESSION_NAME}" -n 'projects' -c "${HOME}/Projects/ncino"
+    prepare_tmux_pane "${SESSION_NAME}:projects" "${HOME}/Projects/ncino" 'clear' 'lls'
+
+    tmux new-window -t "${SESSION_NAME}" -n 'claude-code' -c "${HOME}/Projects/ncino"
+    prepare_tmux_pane "${SESSION_NAME}:claude-code" "${HOME}/Projects/ncino" 'clear' 'lls'
 
     log "${SESSION_NAME}" "Session ${SESSION_NAME} created (windows: btop, home, projects, claude-code)"
 }
